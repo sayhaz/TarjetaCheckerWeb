@@ -1,0 +1,107 @@
+
+@page
+@model TarjetaCheckerWeb.Pages.IndexModel
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+
+<style>
+  .blink {
+    animation: blinkAnim 1s infinite;
+  }
+
+  @@keyframes blinkAnim {
+    50% { opacity: 0.2; }
+  }
+</style>
+
+<div class="container py-5">
+    <h1>✅ Verificador Limpio (Sin BIN)</h1>
+
+    <div id="estado-global" class="alert alert-info">
+        Esperando inicio de proceso...
+    </div>
+
+    <form id="form-tarjetas" class="mb-4" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label for="Datos" class="form-label">Pega aquí las tarjetas (número|mes|año, una por línea):</label>
+            <textarea name="Datos" id="Datos" rows="6" class="form-control">@Model.Datos</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar Verificación</button>
+    </form>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="text-success">✅ VIVAS</h3>
+            <div class="border rounded p-2" style="height: 300px; overflow-y: auto;">
+                <ul id="vivas" class="list-group"></ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3 class="text-danger">❌ MUERTAS</h3>
+            <div class="border rounded p-2" style="height: 300px; overflow-y: auto;">
+                <ul id="muertas" class="list-group"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const estadoGlobal = document.getElementById("estado-global");
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/statushub")
+        .build();
+
+    connection.on("RecibirEstado", (data, index, total) => {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.innerHTML = `<strong>${data.numero}</strong> - ${data.estado}<br>
+                        Expira: ${data.mes}/${data.año}`;
+
+        if (data.estado.includes("VIVA")) {
+            document.getElementById("vivas").appendChild(li);
+        } else if (data.estado.includes("MUERTA")) {
+            document.getElementById("muertas").appendChild(li);
+        }
+
+        estadoGlobal.innerText = `Procesando tarjeta ${index} de ${total}
+Número: ${data.numero} | Estado: ${data.estado}
+Expira: ${data.mes}/${data.año}`;
+        estadoGlobal.classList.add("blink", "alert-info");
+
+        const textarea = document.getElementById("Datos");
+        const lineas = textarea.value.split(/\r?\n/);
+        lineas.shift();
+        textarea.value = lineas.join("\n");
+
+        if (lineas.length === 0) {
+            estadoGlobal.innerText = `✅ Proceso finalizado: ${total} tarjetas verificadas.`;
+            estadoGlobal.classList.remove("blink");
+            estadoGlobal.classList.remove("alert-info");
+            estadoGlobal.classList.add("alert-success");
+        }
+    });
+
+    connection.start();
+
+    document.getElementById("form-tarjetas").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const datos = document.getElementById("Datos").value;
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        estadoGlobal.innerText = `Iniciando verificación...`;
+        estadoGlobal.classList.add("blink");
+
+        await fetch("/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "__RequestVerificationToken=" + encodeURIComponent(token) + "&Datos=" + encodeURIComponent(datos)
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

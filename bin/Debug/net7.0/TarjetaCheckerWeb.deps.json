@@ -1,0 +1,113 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "TarjetaCheckerWeb/1.0.0": {
+        "dependencies": {
+          "Selenium.Support": "4.34.0",
+          "Selenium.WebDriver": "4.34.0",
+          "Selenium.WebDriver.ChromeDriver": "138.0.7204.15700"
+        },
+        "runtime": {
+          "TarjetaCheckerWeb.dll": {}
+        }
+      },
+      "Selenium.Support/4.34.0": {
+        "dependencies": {
+          "Selenium.WebDriver": "4.34.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/WebDriver.Support.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "Selenium.WebDriver/4.34.0": {
+        "dependencies": {
+          "System.Text.Json": "8.0.5"
+        },
+        "runtime": {
+          "lib/netstandard2.0/WebDriver.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "Selenium.WebDriver.ChromeDriver/138.0.7204.15700": {},
+      "System.Text.Encodings.Web/8.0.0": {
+        "runtime": {
+          "lib/net7.0/System.Text.Encodings.Web.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/browser/lib/net7.0/System.Text.Encodings.Web.dll": {
+            "rid": "browser",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
+      "System.Text.Json/8.0.5": {
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0"
+        },
+        "runtime": {
+          "lib/net7.0/System.Text.Json.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1024.46610"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TarjetaCheckerWeb/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Selenium.Support/4.34.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+GROvBcro1ayU9PlGu4Q6xGyRk+wlbwGrmL3lZqm+s6T+NVs0Fmp2r8t6DvKMY/ZaDh9svkvxqN808+EnFPhDw==",
+      "path": "selenium.support/4.34.0",
+      "hashPath": "selenium.support.4.34.0.nupkg.sha512"
+    },
+    "Selenium.WebDriver/4.34.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uNx+GF7WugHDPV2zpGDPlbSn3STQ6n0xFskFSeJdhEuuUTkIDfAsYnjVUiQidWDpy7mKzTz53ae7Thjghl3dng==",
+      "path": "selenium.webdriver/4.34.0",
+      "hashPath": "selenium.webdriver.4.34.0.nupkg.sha512"
+    },
+    "Selenium.WebDriver.ChromeDriver/138.0.7204.15700": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TXuEqxz4dHy+Xp+C+lQJAqqAACO8EWP92l+wc5XtWBF5JQsF0Qua/aaGgeTnNYwnQLwJcsvMJJjSzyvXdCYQKA==",
+      "path": "selenium.webdriver.chromedriver/138.0.7204.15700",
+      "hashPath": "selenium.webdriver.chromedriver.138.0.7204.15700.nupkg.sha512"
+    },
+    "System.Text.Encodings.Web/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ==",
+      "path": "system.text.encodings.web/8.0.0",
+      "hashPath": "system.text.encodings.web.8.0.0.nupkg.sha512"
+    },
+    "System.Text.Json/8.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0f1B50Ss7rqxXiaBJyzUu9bWFOO2/zSlifZ/UNMdiIpDYe4cY4LQQicP4nirK1OS31I43rn062UIJ1Q9bpmHpg==",
+      "path": "system.text.json/8.0.5",
+      "hashPath": "system.text.json.8.0.5.nupkg.sha512"
+    }
+  }
+}
